@@ -96,7 +96,7 @@ class Nlp:
     def keyphrase_analytics(self,df):
         util = Util()
         df["key_phrases"] = df.KeyPhraseResults.apply(self.parse_keyPhraseResults)
-        df["key_phrase_counts"] = df.key_phrases.apply(util.count_labels)
+        df["key_phrase_counts"] = df.key_phrases.apply(util.count_keys)
         df["key_phrases_total"] = df.key_phrase_counts.apply(util.tuple_values_total)
         if (len(df)>1):
             df["key_phrases_scaled"] = util.scale_min_max(df[['key_phrases_total']])

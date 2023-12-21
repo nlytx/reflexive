@@ -5,7 +5,7 @@ with open("README.md", "r", encoding = "utf-8") as fh:
 
 setuptools.setup(
     name = "reflexive",
-    version = "0.1.1",
+    version = "0.1.6",
     author = "Andrew Gibson",
     author_email = "andrew@nlytx.io",
     description = "Supports AWS Reflexive Expressions Analysis",

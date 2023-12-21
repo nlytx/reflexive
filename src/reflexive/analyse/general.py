@@ -33,7 +33,7 @@ class General:
         tempdf = df.copy()
         # Calculate text length
         tempdf["text_length"] = tempdf.text.apply(lambda t: len(t))
-        fence = self.outlier_fence(tempdf.text_length)  
+        fence = Util.outlier_fence(tempdf.text_length)  
         print(fence)
         # Check change with removed outliers
         checkdf = tempdf[tempdf.text_length<fence['UPPER']]

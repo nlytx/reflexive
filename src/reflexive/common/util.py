@@ -1,6 +1,6 @@
 
 # Utility functions
-
+from sklearn.preprocessing import MinMaxScaler
 
 class Util:
     
@@ -60,6 +60,12 @@ class Util:
         counts = dict()
         for rt in string_labels:
             counts[rt[1]] = counts.setdefault(rt[1],0) + 1
+        return sorted(counts.items(), key=lambda x: x[1], reverse=True)
+    
+    def count_keys(self,key_count_dict):
+        counts = dict()
+        for k,v in key_count_dict.items():
+            counts[k] = counts.setdefault(k,0) + v 
         return sorted(counts.items(), key=lambda x: x[1], reverse=True)
         
      # Total the values in list of tuples
