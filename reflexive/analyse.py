@@ -357,37 +357,38 @@ class Nlp:
 
 
 
-    #--
+    #checked
     def extractAnalysisFromResults(self,results):
         analysis_output = dict()
-        for result in results:
+        jresults = json.loads(results)
+        for result in jresults:
             j = json.loads(result)
             #print(j)
             idx = j["File"].split('_')[-1].split('.')[0]
             analysis_output[int(idx)] = j["Entities"]
         return analysis_output
 
-    #--
+    #checked
     def add_to_dataframe(self,df,results):
         # Extract analysis from raw results
         analysis_output = self.extractAnalysisFromResults(results)
         # Add results to dataframe
         results_df = df.copy()
-        results_df['reflexiveResults'] = pd.Series(analysis_output)
+        results_df['ReflexiveResults'] = pd.Series(analysis_output)
         return results_df
 
     #--
     def reflexive_analytics(self,df):
-        util = Util()
+        #util = Util()
         custom_df = df.copy() 
         # custom_df["text_length"] = df.text.apply(lambda x: len(x))
         # if (len(custom_df)>1):
         #     custom_df["text_scaled"] = util.scale_min_max(custom_df[['text_length']])
         # else:
         #     custom_df["text_scaled"] = 1
-        custom_df["reflexive_results"] = df.reflexiveResults
+        #custom_df["reflexive_results"] = df.reflexiveResults
         # The expressions and their reflexive expression labels
-        custom_df["reflexive_expressions"] = df.reflexiveResults.apply(self.parse_reflexiveResults)
+        custom_df["reflexive_expressions"] = df.ReflexiveResults.apply(self.parse_reflexiveResults)
         # The counts for each labels
         custom_df["reflexive_counts"] = custom_df.reflexive_expressions.apply(util.count_labels)
         # Ratios between reflexive expressions
@@ -407,10 +408,11 @@ class Nlp:
         custom_df['reflexive_norm'] = util.normalise_scaled(custom_df,'reflexive_scaled')
         return custom_df
 
-    #--
+    #checked
     # Parse reflexive results - include all above threshold
     def parse_reflexiveResults(self,reflexiveResults,threshold=0.5):
         final_refs = list()
+        #rr = json.loads(reflexiveResults)
         for ref in reflexiveResults:
             if ref['Score'] > threshold:
                 final_refs.append((str.lower(ref['Text']),ref['Type']))

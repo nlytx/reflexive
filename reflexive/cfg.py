@@ -37,6 +37,10 @@ class Config:
     
     text_col_name = 'text'
     domain_terms = {}
+    
+    display_priority_tags = None
+    display_colours = None
+    display_options = None
 
     def __init__(self,profile="default"):
         self.aws_profile = profile
@@ -101,6 +105,12 @@ class Config:
         self.reflexive_entity_name = reflexive_entity_name
         self.reflexive_entity_version = reflexive_entity_version
         self.reflexive_entity_arn = f"arn:aws:comprehend:{self.aws_region}:{self.aws_account_number}:entity-recognizer/{self.reflexive_entity_name}/version/{self.reflexive_entity_version}"
+        return self.get_parameters()
+    
+    def set_display_parameters(self,priority_tags,display_colours,display_options):
+        self.display_priority_tags = priority_tags
+        self.display_colours = display_colours
+        self.display_options = display_options
         return self.get_parameters()
     
     

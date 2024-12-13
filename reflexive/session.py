@@ -1,6 +1,8 @@
 
 import boto3
 import time
+import tarfile
+import json
 
 from reflexive import cfg
 import reflexive as rfx
@@ -113,9 +115,10 @@ class S3:
         # extract results and save and return
         raw_results = files[0].decode("utf-8").split('\n')
         raw_results.pop() # pop last item off as empty entry due to final \n
+        json_results = json.dumps(raw_results)
         with open(f"{local_file_path}.json","w") as fp:
-            fp.write(json.dumps(raw_results))
-        return raw_results
+            fp.write(json_results)
+        return json_results
 
 
 class Comprehend:
